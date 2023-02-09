@@ -43,8 +43,6 @@ function ToDo() {
     );
   });
 
-  const listContainer = <div className='mt-2'>{renderedList}</div>;
-
   return (
     <div className='mt-60 mx-auto'>
       <form
@@ -65,7 +63,7 @@ function ToDo() {
           <GoPlus />
         </Button>
       </form>
-      {list.length !== 0 && listContainer}
+      <div className='mt-2'>{renderedList}</div>
     </div>
   );
 }
