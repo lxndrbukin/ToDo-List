@@ -1,9 +1,14 @@
 import { useState, Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createTask, removeTask } from '../store';
 import Button from './reusable/Button';
 import { GoPlus } from 'react-icons/go';
 import ToDoItem from './ToDoItem';
 
 function ToDo() {
+  const dispatch = useDispatch();
+  const tasksList = useSelector((state) => state.tasks);
+
   const [list, setList] = useState([]);
   const [item, setItem] = useState('');
 
@@ -12,13 +17,12 @@ function ToDo() {
   };
 
   const handleAddItem = () => {
-    setList([...list, item]);
+    dispatch(createTask(item));
     setItem('');
   };
 
   const handleDeleteItem = (item) => {
-    const updatedList = list.filter((listItem) => listItem !== item);
-    setList(updatedList);
+    dispatch(removeTask(item));
   };
 
   const handleUpdateItem = (item, index) => {
@@ -31,7 +35,7 @@ function ToDo() {
     e.preventDefault();
   };
 
-  const renderedList = list.map((listItem, index) => {
+  const renderedList = tasksList.map((listItem, index) => {
     return (
       <ToDoItem
         handleDeleteItem={handleDeleteItem}
