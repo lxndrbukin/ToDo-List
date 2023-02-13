@@ -1,21 +1,24 @@
 import { useState, Fragment } from 'react';
+import { useDispatch } from 'react-redux';
+import { editTask } from '../store';
 import { GoPencil, GoTrashcan, GoFile } from 'react-icons/go';
 import Button from './reusable/Button';
 
-function ToDoItem({ listItem, index, handleDeleteItem, handleUpdateItem }) {
+function ToDoItem({ task, handleDeleteItem }) {
+  const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [updatedItem, setUpdatedItem] = useState(listItem);
+  const [updatedTask, setUpdatedTask] = useState(task);
 
   const handleUpdateForm = () => {
     setShowUpdateForm(true);
   };
 
   const handleChange = (e) => {
-    setUpdatedItem(e.target.value);
+    setUpdatedTask(e.target.value);
   };
 
   const handleClick = () => {
-    handleUpdateItem(updatedItem, index);
+    dispatch(editTask({ original: task, updated: updatedTask }));
     setShowUpdateForm(false);
   };
 
@@ -26,7 +29,7 @@ function ToDoItem({ listItem, index, handleDeleteItem, handleUpdateItem }) {
           <input
             className='focus:outline-none border rounded w-full pl-0.5'
             onChange={handleChange}
-            value={updatedItem}
+            value={updatedTask}
           />
           <Button
             buttonType='success'
@@ -40,7 +43,7 @@ function ToDoItem({ listItem, index, handleDeleteItem, handleUpdateItem }) {
     }
     return (
       <Fragment>
-        <div className='break-words h-fit my-auto'>{listItem}</div>
+        <div className='break-words h-fit my-auto'>{task}</div>
         <div className='flex flex-row my-auto'>
           <Button
             buttonType='primary'
@@ -51,7 +54,7 @@ function ToDoItem({ listItem, index, handleDeleteItem, handleUpdateItem }) {
           </Button>
           <Button
             buttonType='danger'
-            onClick={() => handleDeleteItem(listItem)}
+            onClick={() => handleDeleteItem(task)}
             className='h-10 w-10'
           >
             <GoTrashcan />

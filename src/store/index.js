@@ -1,24 +1,40 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const tasksSlice = createSlice({
+const activeTasksSlice = createSlice({
   name: 'task',
   initialState: [],
   reducers: {
     createTask(state, action) {
       state.push(action.payload);
     },
-    removeTask(state, action) {
+    deleteTask(state, action) {
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
     },
+    editTask(state, action) {
+      const index = state.indexOf(action.payload.original);
+      state[index] = action.payload.updated;
+    },
+  },
+});
+
+const deletedTasksSlice = createSlice({
+  name: 'deletedTask',
+  initialState: [],
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(activeTasksSlice.actions.deleteTask, (state, action) => {
+      state.push(action.payload);
+    });
   },
 });
 
 const store = configureStore({
   reducer: {
-    tasks: tasksSlice.reducer,
+    activeTasks: activeTasksSlice.reducer,
+    deletedTasks: deletedTasksSlice.reducer,
   },
 });
 
 export { store };
-export const { createTask, removeTask } = tasksSlice.actions;
+export const { createTask, deleteTask, editTask } = activeTasksSlice.actions;

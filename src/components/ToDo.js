@@ -1,46 +1,38 @@
 import { useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTask, removeTask } from '../store';
+import { createTask, deleteTask } from '../store';
 import Button from './reusable/Button';
 import { GoPlus } from 'react-icons/go';
 import ToDoItem from './ToDoItem';
 
 function ToDo() {
   const dispatch = useDispatch();
-  const tasksList = useSelector((state) => state.tasks);
+  const activeTasksList = useSelector((state) => state.activeTasks);
 
-  const [list, setList] = useState([]);
-  const [item, setItem] = useState('');
+  const [task, setTask] = useState('');
 
   const handleSetItem = (e) => {
-    setItem(e.target.value);
+    setTask(e.target.value);
   };
 
-  const handleAddItem = () => {
-    dispatch(createTask(item));
-    setItem('');
+  const handleCreateTask = () => {
+    dispatch(createTask(task));
+    setTask('');
   };
 
-  const handleDeleteItem = (item) => {
-    dispatch(removeTask(item));
-  };
-
-  const handleUpdateItem = (item, index) => {
-    const updatedList = [...list];
-    updatedList[index] = item;
-    setList(updatedList);
+  const handleDeleteItem = (task) => {
+    dispatch(deleteTask(task));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  const renderedList = tasksList.map((listItem, index) => {
+  const renderedList = activeTasksList.map((task, index) => {
     return (
       <ToDoItem
         handleDeleteItem={handleDeleteItem}
-        handleUpdateItem={handleUpdateItem}
-        listItem={listItem}
+        task={task}
         key={index}
         index={index}
       />
@@ -50,17 +42,17 @@ function ToDo() {
   return (
     <Fragment>
       <form onSubmit={handleSubmit} className='relative'>
-        <div className='bg-white w-full h-14 p-2 flex flex-row w-fit justify-between rounded border shadow-sm '>
+        <div className='bg-white h-14 p-2 flex flex-row justify-between rounded border shadow-sm '>
           <input
             className='w-full text-xl focus:outline-none m-auto'
             onChange={handleSetItem}
-            value={item}
+            value={task}
             placeholder='Create new task...'
           />
           <Button
             className='m-auto h-10 w-10'
             buttonType='primary'
-            onClick={handleAddItem}
+            onClick={handleCreateTask}
           >
             <GoPlus />
           </Button>
