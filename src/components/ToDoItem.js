@@ -2,6 +2,7 @@ import { useState, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { editTask } from '../store';
 import { GoPencil, GoTrashcan, GoFile } from 'react-icons/go';
+import { MdDoneOutline } from 'react-icons/md';
 import Button from './reusable/Button';
 
 function ToDoItem({ task, handleDeleteItem }) {
@@ -45,6 +46,13 @@ function ToDoItem({ task, handleDeleteItem }) {
       <Fragment>
         <div className='break-words h-fit my-auto'>{task}</div>
         <div className='flex flex-row my-auto'>
+          <Button
+            buttonType='success'
+            onClick={handleUpdateForm}
+            className='h-10 w-10'
+          >
+            <MdDoneOutline />
+          </Button>
           <Button
             buttonType='primary'
             onClick={handleUpdateForm}
