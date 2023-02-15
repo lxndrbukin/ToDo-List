@@ -1,7 +1,7 @@
 import './index.css';
 import Route from './components/router/Route';
 import Header from './components/Header';
-import ToDo from './components/ToDo';
+import ActiveTasks from './components/ActiveTasks';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Header />
       <div className='col-span-5 w-1/2 mt-72 mx-auto'>
         <Route path='/'>
-          <ToDo />
+          <ActiveTasks />
         </Route>
       </div>
     </div>

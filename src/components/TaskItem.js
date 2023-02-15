@@ -5,10 +5,10 @@ import { GoPencil, GoTrashcan, GoFile } from 'react-icons/go';
 import { MdDoneOutline } from 'react-icons/md';
 import Button from './reusable/Button';
 
-function ToDoItem({ task, handleDeleteItem }) {
+function TaskItem({ task, handleDeleteItem }) {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [updatedTask, setUpdatedTask] = useState(task);
+  const [updatedTask, setUpdatedTask] = useState(task.data);
 
   const handleUpdateForm = () => {
     setShowUpdateForm(true);
@@ -44,7 +44,7 @@ function ToDoItem({ task, handleDeleteItem }) {
     }
     return (
       <Fragment>
-        <div className='break-words h-fit my-auto'>{task}</div>
+        <div className='break-words h-fit my-auto'>{task.data}</div>
         <div className='flex flex-row my-auto'>
           <Button
             buttonType='success'
@@ -62,7 +62,7 @@ function ToDoItem({ task, handleDeleteItem }) {
           </Button>
           <Button
             buttonType='danger'
-            onClick={() => handleDeleteItem(task)}
+            onClick={() => handleDeleteItem(task.id)}
             className='h-10 w-10'
           >
             <GoTrashcan />
@@ -79,4 +79,4 @@ function ToDoItem({ task, handleDeleteItem }) {
   );
 }
 
-export default ToDoItem;
+export default TaskItem;

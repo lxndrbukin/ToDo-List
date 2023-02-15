@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createTask, deleteTask } from '../store';
 import Button from './reusable/Button';
 import { GoPlus } from 'react-icons/go';
-import ToDoItem from './ToDoItem';
+import TaskItem from './TaskItem';
 
 function ToDo() {
   const dispatch = useDispatch();
-  const activeTasksList = useSelector((state) => state.activeTasks);
+  const activeTasksList = useSelector((state) => state.tasks.activeTasks);
 
   const [task, setTask] = useState('');
 
@@ -16,12 +16,12 @@ function ToDo() {
   };
 
   const handleCreateTask = () => {
-    dispatch(createTask(task));
+    dispatch(createTask({ data: task }));
     setTask('');
   };
 
   const handleDeleteItem = (task) => {
-    dispatch(deleteTask(task));
+    dispatch(deleteTask(task.id));
   };
 
   const handleSubmit = (e) => {
@@ -30,7 +30,7 @@ function ToDo() {
 
   const renderedList = activeTasksList.map((task, index) => {
     return (
-      <ToDoItem
+      <TaskItem
         handleDeleteItem={handleDeleteItem}
         task={task}
         key={index}
