@@ -35,12 +35,26 @@ const tasksSlice = createSlice({
   },
 });
 
+const formSlice = createSlice({
+  name: 'form',
+  initialState: {
+    taskInput: '',
+  },
+  reducers: {
+    setTask(state, action) {
+      state.taskInput = action.payload;
+    },
+  },
+});
+
 const store = configureStore({
   reducer: {
     tasks: tasksSlice.reducer,
+    form: formSlice.reducer,
   },
 });
 
 export { store };
 export const { createTask, deleteTask, editTask, completeTask } =
   tasksSlice.actions;
+export const { setTask } = formSlice.actions;
