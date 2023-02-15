@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
 
 function DeletedTasks() {
-  const dispatch = useDispatch();
   const deletedTasksList = useSelector((state) => state.tasks.deletedTasks);
 
-  const renderedDeletedTasks = deletedTasksList.map((deletedTask) => {
-    return <TaskItem key={deletedTask.id} />;
+  const renderedDeletedTasks = deletedTasksList.map((task) => {
+    return <TaskItem key={task.id} task={task} />;
   });
-  return <div>Deleted</div>;
+  return <div className='mt-2 relative z-10'>{renderedDeletedTasks}</div>;
 }
 
 export default DeletedTasks;

@@ -1,14 +1,22 @@
 import { useState, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { editTask } from '../store';
+import { editTask, deleteTask, completeTask } from '../store';
 import { GoPencil, GoTrashcan, GoFile } from 'react-icons/go';
 import { MdDoneOutline } from 'react-icons/md';
 import Button from './reusable/Button';
 
-function TaskItem({ task, handleDeleteItem }) {
+function TaskItem({ task }) {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedTask, setUpdatedTask] = useState(task.data);
+
+  const handleDeleteItem = (task) => {
+    dispatch(deleteTask(task));
+  };
+
+  const handleCompleteTask = (task) => {
+    dispatch(completeTask(task));
+  };
 
   const handleUpdateForm = () => {
     setShowUpdateForm(true);
@@ -48,7 +56,7 @@ function TaskItem({ task, handleDeleteItem }) {
         <div className='flex flex-row my-auto'>
           <Button
             buttonType='success'
-            onClick={handleUpdateForm}
+            onClick={() => handleCompleteTask(task)}
             className='h-10 w-10'
           >
             <MdDoneOutline />
@@ -62,7 +70,7 @@ function TaskItem({ task, handleDeleteItem }) {
           </Button>
           <Button
             buttonType='danger'
-            onClick={() => handleDeleteItem(task.id)}
+            onClick={() => handleDeleteItem(task)}
             className='h-10 w-10'
           >
             <GoTrashcan />

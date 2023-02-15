@@ -16,15 +16,22 @@ const tasksSlice = createSlice({
     },
     deleteTask(state, action) {
       const updatedActiveTasks = state.activeTasks.filter((task) => {
-        return task.id !== action.payload;
+        return task.id !== action.payload.id;
       });
       state.activeTasks = updatedActiveTasks;
+      state.deletedTasks.push(action.payload);
     },
     editTask(state, action) {
       const index = state.activeTasks.indexOf(action.payload.original);
       state.activeTasks[index] = action.payload.updated;
     },
-    completeTask(state, action) {},
+    completeTask(state, action) {
+      const updatedActiveTasks = state.activeTasks.filter((task) => {
+        return task.id !== action.payload.id;
+      });
+      state.activeTasks = updatedActiveTasks;
+      state.completedTasks.push(action.payload);
+    },
   },
 });
 
