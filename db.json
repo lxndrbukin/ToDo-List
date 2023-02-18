@@ -1,0 +1,19 @@
+{
+  "activeTasks": [
+    {
+      "data": "bye there",
+      "id": 2
+    }
+  ],
+  "completedTasks": [],
+  "deletedTasks": [
+    {
+      "data": "Hi there",
+      "id": 1
+    },
+    {
+      "data": "new task",
+      "id": 2
+    }
+  ]
+}

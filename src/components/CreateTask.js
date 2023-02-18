@@ -16,7 +16,7 @@ function CreateTask() {
   };
 
   const handleCreateTask = () => {
-    dispatch(createTask({ data: task }));
+    dispatch(createTask(task));
   };
 
   return (
