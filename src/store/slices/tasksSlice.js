@@ -1,5 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { fetchActiveTasks } from '../thunks/fetchActiveTasks';
+import { fetchDeletedTasks } from '../thunks/fetchDeletedTasks';
 import { createTask } from '../thunks/createTask';
 import { deleteTask } from '../thunks/deleteTask';
 
@@ -39,6 +40,9 @@ const tasksSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(fetchActiveTasks.fulfilled, (state, action) => {
       state.activeTasks = action.payload;
+    });
+    builder.addCase(fetchDeletedTasks.fulfilled, (state, action) => {
+      state.deletedTasks = action.payload;
     });
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.activeTasks.push(action.payload);

@@ -1,8 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchDeletedTasks } from '../store';
 import TaskItem from './TaskItem';
 
 function DeletedTasks() {
   const deletedTasksList = useSelector((state) => state.tasks.deletedTasks);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDeletedTasks());
+  }, [dispatch]);
 
   const renderedDeletedTasks = deletedTasksList.map((task) => {
     return <TaskItem key={task.id} task={task} />;
