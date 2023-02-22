@@ -11,7 +11,7 @@ function App() {
     <div className='w-screen h-screen flex flex-col'>
       <Header />
       <div className='col-span-5 w-1/2 mt-72 mx-auto'>
-        <CreateTask />
+        {/* <CreateTask /> */}
         <Route path='/'>
           <ActiveTasks />
         </Route>

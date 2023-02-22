@@ -12,5 +12,6 @@ const store = configureStore({
 export { store, editTask, completeTask, setTask };
 export * from './thunks/fetchActiveTasks';
 export * from './thunks/fetchDeletedTasks';
+export * from './thunks/fetchCompletedTasks';
 export * from './thunks/createTask';
 export * from './thunks/deleteTask';
