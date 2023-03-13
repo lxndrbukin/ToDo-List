@@ -1,29 +1,29 @@
 import './index.css';
+import { useSelector } from 'react-redux';
 import Route from './components/router/Route';
 import Header from './components/Header';
 import CreateTask from './components/CreateTask';
-import ActiveTasks from './components/ActiveTasks';
-import CompletedTasks from './components/CompletedTasks';
-import DeletedTasks from './components/DeletedTasks';
+import Tasks from './components/Tasks';
 
-function App() {
+export default function App() {
+  const { activeTasks, deletedTasks, completedTasks } = useSelector(
+    (state) => state.tasks
+  );
   return (
     <div className='w-screen h-screen flex flex-col'>
       <Header />
       <div className='col-span-5 w-1/2 mt-72 mx-auto'>
         <CreateTask />
         <Route path='/'>
-          <ActiveTasks />
+          <Tasks taskList={activeTasks} showButtons />
         </Route>
         <Route path='/completed'>
-          <CompletedTasks />
+          <Tasks taskList={completedTasks} showButtons={false} />
         </Route>
         <Route path='/deleted'>
-          <DeletedTasks />
+          <Tasks taskList={deletedTasks} showButtons={false} />
         </Route>
       </div>
     </div>
   );
 }
-
-export default App;

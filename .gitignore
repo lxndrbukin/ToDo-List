@@ -5,9 +5,9 @@
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
-/db.json
 
 # production
 /build

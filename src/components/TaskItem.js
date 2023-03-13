@@ -5,7 +5,7 @@ import { GoPencil, GoTrashcan, GoFile } from 'react-icons/go';
 import { MdDoneOutline } from 'react-icons/md';
 import Button from './reusable/Button';
 
-function TaskItem({ task }) {
+export default function TaskItem({ task, showButtons }) {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedTask, setUpdatedTask] = useState(task.data);
@@ -22,14 +22,45 @@ function TaskItem({ task }) {
     setShowUpdateForm(true);
   };
 
-  const handleChange = (e) => {
+  const handleChangeTask = (e) => {
     setUpdatedTask(e.target.value);
   };
 
-  const handleClick = () => {
-    dispatch(editTask({ original: task, updated: updatedTask }));
+  const handleUpdateTask = () => {
+    dispatch(editTask({ task, update: updatedTask }));
     setShowUpdateForm(false);
   };
+
+  let buttons;
+  if (showButtons) {
+    buttons = (
+      <div className='flex flex-row my-auto'>
+        <Button
+          buttonType='primary'
+          onClick={handleUpdateForm}
+          className='h-10 w-10'
+        >
+          <GoPencil />
+        </Button>
+        <Button
+          buttonType='success'
+          onClick={() => handleCompleteTask(task)}
+          className='h-10 w-10'
+        >
+          <MdDoneOutline />
+        </Button>
+        <Button
+          buttonType='danger'
+          onClick={() => handleDeleteItem(task)}
+          className='h-10 w-10'
+        >
+          <GoTrashcan />
+        </Button>
+      </div>
+    );
+  } else {
+    buttons = null;
+  }
 
   const renderedItem = () => {
     if (showUpdateForm) {
@@ -37,12 +68,12 @@ function TaskItem({ task }) {
         <Fragment>
           <input
             className='focus:outline-none border rounded w-full pl-0.5'
-            onChange={handleChange}
+            onChange={handleChangeTask}
             value={updatedTask}
           />
           <Button
             buttonType='success'
-            onClick={handleClick}
+            onClick={handleUpdateTask}
             className='h-10 w-10'
           >
             <GoFile />
@@ -53,29 +84,7 @@ function TaskItem({ task }) {
     return (
       <Fragment>
         <div className='break-words h-fit my-auto'>{task.data}</div>
-        <div className='flex flex-row my-auto'>
-          <Button
-            buttonType='success'
-            onClick={() => handleCompleteTask(task)}
-            className='h-10 w-10'
-          >
-            <MdDoneOutline />
-          </Button>
-          <Button
-            buttonType='primary'
-            onClick={handleUpdateForm}
-            className='h-10 w-10'
-          >
-            <GoPencil />
-          </Button>
-          <Button
-            buttonType='danger'
-            onClick={() => handleDeleteItem(task)}
-            className='h-10 w-10'
-          >
-            <GoTrashcan />
-          </Button>
-        </div>
+        {buttons}
       </Fragment>
     );
   };
@@ -86,5 +95,3 @@ function TaskItem({ task }) {
     </div>
   );
 }
-
-export default TaskItem;

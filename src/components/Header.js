@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import Button from './reusable/Button';
 import Link from './router/Link';
 
-function Header() {
+export default function Header() {
   const { activeTasks, deletedTasks, completedTasks } = useSelector((state) => {
     return {
       activeTasks: state.tasks.activeTasks,
@@ -31,5 +31,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

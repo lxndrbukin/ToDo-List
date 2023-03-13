@@ -4,7 +4,7 @@ import { createTask } from '../store';
 import { GoPlus } from 'react-icons/go';
 import Button from './reusable/Button';
 
-function CreateTask() {
+export default function CreateTask() {
   const dispatch = useDispatch();
   const task = useSelector((state) => state.form.taskInput);
   const handleSubmit = (e) => {
@@ -39,5 +39,3 @@ function CreateTask() {
     </form>
   );
 }
-
-export default CreateTask;

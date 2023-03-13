@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createTask } from '../thunks/createTask';
 
 const formSlice = createSlice({
   name: 'form',
@@ -10,11 +9,6 @@ const formSlice = createSlice({
     setTask(state, action) {
       state.taskInput = action.payload;
     },
-  },
-  extraReducers(builder) {
-    builder.addCase(createTask.fulfilled, (state, action) => {
-      state.taskInput = '';
-    });
   },
 });
 
