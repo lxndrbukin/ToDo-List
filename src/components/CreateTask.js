@@ -21,7 +21,7 @@ export default function CreateTask() {
 
   return (
     <form onSubmit={handleSubmit} className='relative'>
-      <div className='bg-white h-14 p-2 flex flex-row justify-between rounded border shadow-sm '>
+      <div className=' bg-white h-14 p-2 flex flex-row justify-between rounded border shadow-sm '>
         <input
           className='w-full text-xl focus:outline-none m-auto'
           onChange={handleChange}
