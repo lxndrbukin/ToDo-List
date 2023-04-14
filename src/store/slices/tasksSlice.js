@@ -3,9 +3,9 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 const tasksSlice = createSlice({
   name: 'task',
   initialState: {
-    activeTasks: [],
-    completedTasks: [],
-    deletedTasks: [],
+    activeTasks: JSON.parse(localStorage.getItem('activeTasks')) || [],
+    completedTasks: JSON.parse(localStorage.getItem('completedTasks')) || [],
+    deletedTasks: JSON.parse(localStorage.getItem('deletedTasks')) || [],
   },
   reducers: {
     createTask(state, action) {
@@ -13,13 +13,16 @@ const tasksSlice = createSlice({
         id: nanoid(),
         data: action.payload,
       });
+      localStorage.setItem('activeTasks', JSON.stringify(state.activeTasks));
     },
     deleteTask(state, action) {
       const updatedActiveTasks = state.activeTasks.filter((task) => {
         return task.id !== action.payload.id;
       });
       state.activeTasks = updatedActiveTasks;
+      localStorage.setItem('activeTasks', JSON.stringify(updatedActiveTasks));
       state.deletedTasks.push(action.payload);
+      localStorage.setItem('deletedTasks', JSON.stringify(state.deletedTasks));
     },
     editTask(state, action) {
       const index = state.activeTasks.findIndex(
@@ -29,13 +32,19 @@ const tasksSlice = createSlice({
         ...state.activeTasks[index],
         data: action.payload.update,
       };
+      localStorage.setItem('activeTasks', JSON.stringify(state.activeTasks));
     },
     completeTask(state, action) {
       const updatedActiveTasks = state.activeTasks.filter((task) => {
         return task.id !== action.payload.id;
       });
       state.activeTasks = updatedActiveTasks;
+      localStorage.setItem('activeTasks', JSON.stringify(updatedActiveTasks));
       state.completedTasks.push(action.payload);
+      localStorage.setItem(
+        'completedTasks',
+        JSON.stringify(state.completedTasks)
+      );
     },
   },
 });

@@ -90,7 +90,7 @@ export default function TaskItem({ task, showButtons }) {
   };
 
   return (
-    <div className='bg-white w-full my-1 px-2 py-1.5 border rounded flex flex-row justify-between'>
+    <div className='bg-white w-full my-1 px-2 py-1.5 border rounded flex flex-row justify-between h-14'>
       {renderedItem()}
     </div>
   );
