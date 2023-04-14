@@ -1,9 +1,6 @@
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import NavigationContext from '../context/navigation';
-import CreateTask from './CreateTask';
 import Button from './reusable/Button';
-import Link from './router/Link';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const { activeTasks, deletedTasks, completedTasks } = useSelector((state) => {

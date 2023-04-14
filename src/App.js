@@ -1,6 +1,6 @@
 import './index.css';
 import { useSelector } from 'react-redux';
-import Route from './components/router/Route';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import CreateTask from './components/CreateTask';
 import Tasks from './components/Tasks';
@@ -14,15 +14,20 @@ export default function App() {
       <Header />
       <div className='col-span-5 w-1/2 mt-72 mx-auto'>
         <CreateTask />
-        <Route path='/'>
-          <Tasks taskList={activeTasks} showButtons />
-        </Route>
-        <Route path='/completed'>
-          <Tasks taskList={completedTasks} showButtons={false} />
-        </Route>
-        <Route path='/deleted'>
-          <Tasks taskList={deletedTasks} showButtons={false} />
-        </Route>
+        <Routes>
+          <Route
+            path='/'
+            element={<Tasks taskList={activeTasks} showButtons />}
+          />
+          <Route
+            path='/completed'
+            element={<Tasks taskList={completedTasks} showButtons={false} />}
+          />
+          <Route
+            path='/deleted'
+            element={<Tasks taskList={deletedTasks} showButtons={false} />}
+          />
+        </Routes>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ function Link({ to, children, className }) {
     navigate(to);
   };
   return (
-    <a href={to} onClick={handleClick}>
+    <a href={to} className={className} onClick={handleClick}>
       {children}
     </a>
   );
